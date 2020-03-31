@@ -38,29 +38,6 @@ Requirements:
 - NumPy
 - Matplotlib (optional, only needed for display)
 
-# Creating MiniGrid environments from numpy arrays
-
-The numpy grid map is used within gym-minigrid and can be extracted from other environments as well. 
-
-In order to ease the process of creating, replicating or abstracting other environments, we can extract the numpy array and its index mapping to load the NumpyMap-like environments.
-
-If you'd like to extract the information from 3D voxelized environments like Minecraft and aggregate them as 2D grid, gym-minigrid is a great tool to visualize the complex environments, and abstract it for curriculum based reinforcement learning.
-
-## Quick Run 
-```./manual_control.py --env ./manual_control.py --env MiniGrid-NumpyMapFourRoomsPartialView-v0```
-
-To change different maps, you can edit the constructor argument in `MiniGrid-NumpyMapFourRoomsPartialView-v0` in `envs/numpyworld.py`. 
-
-Sample replacement can be:
-`numpyworldfiles/map001.npy`
-`numpyworldfiles/map002.npy` 
-
-
-![NumpyMapFourRoomsPartialView-map000](https://user-images.githubusercontent.com/10459222/78079483-36c05480-737a-11ea-8a98-3c19c0e39535.png)
-![NumpyMapFourRoomsPartialView-map001](https://user-images.githubusercontent.com/10459222/78079488-388a1800-737a-11ea-9bcb-6db170064077.png)
-![NumpyMapFourRoomsPartialView-map002](https://user-images.githubusercontent.com/10459222/78079494-3a53db80-737a-11ea-9e6d-243c193dfb4a.png)
-Please use this bibtex if you want to cite this repository in your publications:
-
 
 
 ```
