@@ -117,14 +117,15 @@ class NumpyMapFourRoomsPartialView(NumpyMapFourRooms):
 
 
 
-register(
-    id='MiniGrid-NumpyMap-v0',
-    entry_point='gym_minigrid.envs:NumpyMap'
-)
-register(
-    id='MiniGrid-NumpyMapFourRooms-v0',
-    entry_point='gym_minigrid.envs:NumpyMapFourRooms'
-)
+# register(
+#     id='MiniGrid-NumpyMap-v0',
+#     entry_point='gym_minigrid.envs:NumpyMap'
+# )
+# register(
+#     id='MiniGrid-NumpyMapFourRooms-v0',
+#     entry_point='gym_minigrid.envs:NumpyMapFourRooms'
+# )
+
 register(	
 	id='MiniGrid-NumpyMapFourRoomsPartialView-v0',
     entry_point='gym_minigrid.envs:NumpyMapFourRoomsPartialView'
