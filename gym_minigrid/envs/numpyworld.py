@@ -11,21 +11,20 @@ class NumpyMap(MiniGridEnv):
     """
     Environment created if given a numpy array and index mapping
     """
-
-    def __init__(self):
+    def __init__(self, array, index_mapping):
+        self.array = array 
+        self.index_mapping = index_mapping
         super().__init__(grid_size=19, max_steps=100)
 
-    def _gen_grid(self, array, index_mapping):
+    def _gen_grid(self):
         # Create the grid
-        self.array = array
-
-        for i in range(array.shape[0]):
-            for j in range(array.shape[1]):
-                entity_name = index_mapping[array[i][j]]
+        for i in range(self.array.shape[0]):
+            for j in range(self.array.shape[1]):
+                entity_name = self.index_mapping[self.array[i][j]]
                 for worldobj in WorldObj.__subclasses__():
                     # if entity == worldobj.__name__:
                     #     print('entity')
-                    entity = WorldObj.__subclasses__()[array[i][j]]()
+                    entity = WorldObj.__subclasses__()[self.array[i][j]]()
                     self.put_obj(entity, i, j)
 
 
@@ -37,8 +36,9 @@ class NumpyMap(MiniGridEnv):
 
 class NumpyMapFourRooms(MiniGridEnv):
     """
-    Environment with multiple rooms and random objects.
-    This environment has no specific goals or rewards.
+    Environment created with partial observed map 
+    as perceived by the agent
+    Numpy files extracted from the FourRooms env
     """
 
     def __init__(self, array, index_mapping):
@@ -85,10 +85,13 @@ class NumpyMapFourRoomsPartialView(NumpyMapFourRooms):
 	"""
 	Assuming that `grid.npy` exists in the root folder 
 	with the approperiate shape for the grid (i.e. 40x40)
-	"""
-	def __init__(self, numpyFile='numpyworldfiles/map003.npy'):
-		self.array = np.load(numpyFile)
-		self.index_mapping = {
+	
+    Change the argument for `numpyFile` with the path to your numpy file
+    relative to the root folder
+
+    Specify the index mapping for every possible value in the numpy array
+    For example: 
+        self.index_mapping = {
              0 : 'unseen'        ,
              1 : 'empty'         ,
              2 : 'wall'          ,
@@ -100,7 +103,16 @@ class NumpyMapFourRoomsPartialView(NumpyMapFourRooms):
              8 : 'goal'          ,
              9 : 'lava'          ,
              10: 'agent'          
-        }
+        } 
+        or use the default minigrid's IDX_TO_OBJECT
+        This index mapping can be adapted to transfer between map
+        representations from other environments
+
+    """
+	def __init__(self, numpyFile='numpyworldfiles/map003.npy'):
+		self.array = np.load(numpyFile)
+
+        self.index_mapping = IDX_TO_OBJECT
 		super().__init__(self.array, self.index_mapping)
 
 
@@ -113,8 +125,7 @@ register(
     id='MiniGrid-NumpyMapFourRooms-v0',
     entry_point='gym_minigrid.envs:NumpyMapFourRooms'
 )
-register(
-	
+register(	
 	id='MiniGrid-NumpyMapFourRoomsPartialView-v0',
     entry_point='gym_minigrid.envs:NumpyMapFourRoomsPartialView'
 )
